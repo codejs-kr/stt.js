@@ -1,2 +1,3 @@
 # stt.js
-speech to text javascript library
+
+Speech To Text Javascript Library

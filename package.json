@@ -1,0 +1,27 @@
+{
+  "name": "stt.js",
+  "version": "0.1.1",
+  "description": "Speech to text javascript library",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dodortus/stt.js.git"
+  },
+  "keywords": [
+    "stt",
+    "speech to text",
+    "speech recognition"
+  ],
+  "author": "dodortus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dodortus/stt.js/issues"
+  },
+  "homepage": "https://github.com/dodortus/stt.js#readme",
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
+}
