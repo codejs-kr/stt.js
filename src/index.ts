@@ -11,7 +11,7 @@ class STT {
   recognition: any;
   isRecognizing: boolean;
 
-  constructor({ language = "ko" }) {
+  constructor({ language = 'ko' }) {
     this.recognition = recognition;
     this.recognition.lang = language;
     this.recognition.continuous = true;
@@ -22,7 +22,7 @@ class STT {
   }
 
   start() {
-    console.log("start");
+    console.log('start');
     if (this.isRecognizing) {
       this.stop();
       return;
@@ -36,7 +36,7 @@ class STT {
   }
 
   onStart() {
-    console.log("onStart");
+    console.log('onStart');
     this.isRecognizing = true;
   }
 

@@ -7,7 +7,7 @@
     "declaration": true,
     "jsx": "react",
     "sourceMap": true,
-    "outDir": "./build/",
+    "outDir": "./dist/",
     "baseUrl": "./src" // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#base-url
   },
   "include": ["src/**/*"]

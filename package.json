@@ -2,7 +2,7 @@
   "name": "stt.js",
   "version": "0.1.1",
   "description": "Speech to text javascript library",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "npm run test"
   },
