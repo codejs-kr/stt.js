@@ -3,7 +3,19 @@
 Speech To Text Javascript Library
 
 
+## 인식률 측정
+
+    맥북 내장 마이크 대략적인 거리별 인식 테스트 (4 ~ 6인 소회의실)
+    조용한 환경에서 보통의 목소리 크기로 글을 읽어본 결과.
+    - 1m 이내, 인식률 90%이상
+    - 1.2m 이내, 인식률 약 60~70%
+    - 1.5m 초과, 인식률 약 10% 문자 인식 거의 못함
+
+    ※ 이어폰 마이크를 사용하면 인식률은 가장 좋게 나온다.
+
+
 ## Commit Messages
+
 - feat: (new feature for the user, not a new feature for build script)
 - fix: (bug fix for the user, not a fix to a build script)
 - docs: (changes to the documentation)
