@@ -1,6 +1,6 @@
 import './main.scss';
-import STT from '../dist/index';
+import STT from '../dist';
 
 console.log('STT :>> ', new STT({}));
 
-export default function () {}
+export default {};
