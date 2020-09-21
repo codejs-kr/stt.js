@@ -1,15 +1,13 @@
 // TODO: emitter
+import { linebreak, capitalize } from './utils';
 
 const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
 
-const FIRST_CHAR = /\S/;
-const TWO_LINE = /\n\n/g;
-const ONE_LINE = /\n/g;
-
 class STT {
   recognition: any;
   isRecognizing: boolean;
+  finalTranscript: string = '';
 
   constructor({ language = 'ko' }) {
     this.recognition = recognition;
@@ -19,6 +17,8 @@ class STT {
 
     this.recognition.onstart = this.onStart;
     this.recognition.onresult = this.onResult;
+    this.recognition.onend = this.onResult;
+    this.recognition.onerror = this.onError;
   }
 
   start() {
@@ -40,9 +40,40 @@ class STT {
     this.isRecognizing = true;
   }
 
-  onResult() {}
+  onResult(event) {
+    console.log('onResult');
 
-  onError() {}
+    let interimTranscript = '';
+    if (typeof event.results === 'undefined') {
+      recognition.onend = null;
+      recognition.stop();
+      return;
+    }
+
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      const transcript = event.results[i][0].transcript;
+
+      if (event.results[i].isFinal) {
+        this.finalTranscript += transcript;
+      } else {
+        interimTranscript += transcript;
+      }
+    }
+
+    this.finalTranscript = capitalize(this.finalTranscript);
+    // final_span.innerHTML = linebreak(finalTranscript);
+    // interim_span.innerHTML = linebreak(interimTranscript);
+  }
+
+  onEnd() {
+    console.log('onEnd');
+    this.isRecognizing = false;
+  }
+
+  onError() {
+    console.log('onError');
+    this.isRecognizing = false;
+  }
 
   initialize() {
     // do something
