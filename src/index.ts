@@ -40,14 +40,19 @@ class STT {
     this.isRecognizing = true;
   }
 
+  onEnd() {
+    console.log('onEnd');
+    this.isRecognizing = false;
+  }
+
   onResult(event) {
-    console.log('onResult');
+    console.log('onResult', event.results);
 
     let interimTranscript = '';
     if (typeof event.results === 'undefined') {
       recognition.onend = null;
       recognition.stop();
-      return;
+      return false;
     }
 
     for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -65,18 +70,12 @@ class STT {
     // interim_span.innerHTML = linebreak(interimTranscript);
   }
 
-  onEnd() {
-    console.log('onEnd');
+  onError(event) {
+    console.log('onError', event.error);
     this.isRecognizing = false;
-  }
 
-  onError() {
-    console.log('onError');
-    this.isRecognizing = false;
-  }
-
-  initialize() {
-    // do something
+    // emit
+    // event.error.match(/no-speech|audio-capture|not-allowed/)
   }
 }
 
