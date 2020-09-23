@@ -38,11 +38,13 @@ class STT {
   onStart() {
     console.log('onStart');
     this.isRecognizing = true;
+    // emit start
   }
 
   onEnd() {
     console.log('onEnd');
     this.isRecognizing = false;
+    // emit end
   }
 
   onResult(event) {
@@ -66,6 +68,11 @@ class STT {
     }
 
     this.finalTranscript = capitalize(this.finalTranscript);
+
+    // emit
+    // linebreak(finalTranscript)
+    // linebreak(interimTranscript)
+
     // final_span.innerHTML = linebreak(finalTranscript);
     // interim_span.innerHTML = linebreak(interimTranscript);
   }
@@ -74,7 +81,7 @@ class STT {
     console.log('onError', event.error);
     this.isRecognizing = false;
 
-    // emit
+    // emit error
     // event.error.match(/no-speech|audio-capture|not-allowed/)
   }
 }
