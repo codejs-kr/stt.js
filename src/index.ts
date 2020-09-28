@@ -1,4 +1,5 @@
 // TODO: emitter
+import { isSupportedBrowser } from './env';
 import { linebreak, capitalize } from './utils';
 
 const speechRecognition = window.webkitSpeechRecognition;
@@ -23,6 +24,12 @@ class STT {
 
   start() {
     console.log('start');
+    if (!isSupportedBrowser) {
+      return {
+        isSupportedBrowser,
+      };
+    }
+
     if (this.isRecognizing) {
       this.stop();
       return;
