@@ -1,9 +1,10 @@
-// TODO: emitter
+import mitt from 'mitt';
 import { isSupportedBrowser } from './env';
 import { linebreak, capitalize } from './utils';
 
 const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
+const emitter = mitt();
 
 class STT {
   recognition: any;
