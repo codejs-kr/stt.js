@@ -1,6 +1,17 @@
 import './main.scss';
 import STT from '../dist';
 
-console.log('STT :>> ', new STT({}));
+const stt = new STT({});
+console.log('STT :>> ', stt);
+
+stt.events.on('start', () => {
+  alert('onstart');
+});
+
+stt.events.on('end', () => {
+  alert('onend');
+});
+
+stt.start();
 
 export default {};

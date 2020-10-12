@@ -4,14 +4,17 @@ import { linebreak, capitalize } from './utils';
 
 const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
-const emitter = mitt();
 
 class STT {
   recognition: any;
   isRecognizing: boolean;
   finalTranscript: string = '';
+  events: any;
 
   constructor({ language = 'ko' }) {
+    this.events = mitt();
+
+    // Object.assign(this, mitt(e));
     this.recognition = recognition;
     this.recognition.lang = language;
     this.recognition.continuous = true;
@@ -24,7 +27,6 @@ class STT {
   }
 
   start() {
-    console.log('start');
     if (!isSupportedBrowser) {
       return {
         isSupportedBrowser,
@@ -47,12 +49,14 @@ class STT {
     console.log('onStart');
     this.isRecognizing = true;
     // emit start
+    this.events.emit('start');
   }
 
   onEnd() {
     console.log('onEnd');
     this.isRecognizing = false;
     // emit end
+    this.events.emit('end');
   }
 
   onResult(event) {
