@@ -4,26 +4,31 @@ import { linebreak, capitalize } from './utils';
 
 const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
+const emitter = mitt();
 
 class STT {
   recognition: any;
   isRecognizing: boolean;
   finalTranscript: string = '';
-  events: any;
 
   constructor({ language = 'ko' }) {
-    this.events = mitt();
-
-    // Object.assign(this, mitt(e));
     this.recognition = recognition;
     this.recognition.lang = language;
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
-
+    
     this.recognition.onstart = this.onStart;
     this.recognition.onresult = this.onResult;
     this.recognition.onend = this.onResult;
     this.recognition.onerror = this.onError;
+  }
+
+  on(eventName, listener) {
+    emitter.on(eventName, listener);
+  }
+
+  off(eventName, listener) {
+    emitter.off(eventName, listener);
   }
 
   start() {
@@ -49,26 +54,24 @@ class STT {
     console.log('onStart');
     this.isRecognizing = true;
     // emit start
-    this.events.emit('start');
+    emitter.emit('start');
   }
 
   onEnd() {
     console.log('onEnd');
     this.isRecognizing = false;
     // emit end
-    this.events.emit('end');
+    emitter.emit('end');
   }
 
   onResult(event) {
-    console.log('onResult', event.results);
-
-    let interimTranscript = '';
     if (typeof event.results === 'undefined') {
       recognition.onend = null;
       recognition.stop();
       return false;
     }
-
+    
+    let interimTranscript = '';
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       const transcript = event.results[i][0].transcript;
 
@@ -90,11 +93,11 @@ class STT {
   }
 
   onError(event) {
-    console.log('onError', event.error);
     this.isRecognizing = false;
-
+    
     // emit error
     // event.error.match(/no-speech|audio-capture|not-allowed/)
+    emitter.emit('error', event.error);
   }
 }
 

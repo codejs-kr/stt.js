@@ -4,12 +4,16 @@ import STT from '../dist';
 const stt = new STT({});
 console.log('STT :>> ', stt);
 
-stt.events.on('start', () => {
-  alert('onstart');
+stt.on('start', () => {
+  console.log('start :>> ');
 });
 
-stt.events.on('end', () => {
-  alert('onend');
+stt.on('end', () => {
+  console.log('end :>> ');
+});
+
+stt.on('error', (error) => {
+  console.log('error :>> ', error);
 });
 
 stt.start();
