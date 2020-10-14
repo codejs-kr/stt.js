@@ -12,6 +12,10 @@ stt.on('end', () => {
   console.log('end :>> ');
 });
 
+stt.on('result', ({ finalTranscript, interimTranscript }) => {
+  console.log('result :>> ', finalTranscript, interimTranscript);
+});
+
 stt.on('error', (error) => {
   console.log('error :>> ', error);
 });

@@ -18,8 +18,8 @@ class STT {
     this.recognition.interimResults = true;
     
     this.recognition.onstart = this.onStart;
-    this.recognition.onresult = this.onResult;
     this.recognition.onend = this.onResult;
+    this.recognition.onresult = this.onResult;
     this.recognition.onerror = this.onError;
   }
 
@@ -51,16 +51,12 @@ class STT {
   }
 
   onStart() {
-    console.log('onStart');
     this.isRecognizing = true;
-    // emit start
     emitter.emit('start');
   }
 
   onEnd() {
-    console.log('onEnd');
     this.isRecognizing = false;
-    // emit end
     emitter.emit('end');
   }
 
@@ -84,9 +80,11 @@ class STT {
 
     this.finalTranscript = capitalize(this.finalTranscript);
 
-    // emit
-    // linebreak(finalTranscript)
-    // linebreak(interimTranscript)
+    // emit result
+    emitter.emit('result', { 
+      finalTranscript: linebreak(this.finalTranscript),
+      interimTranscript: linebreak(interimTranscript)
+    });
 
     // final_span.innerHTML = linebreak(finalTranscript);
     // interim_span.innerHTML = linebreak(interimTranscript);
@@ -94,9 +92,7 @@ class STT {
 
   onError(event) {
     this.isRecognizing = false;
-    
-    // emit error
-    // event.error.match(/no-speech|audio-capture|not-allowed/)
+    // no-speech|audio-capture|not-allowed
     emitter.emit('error', event.error);
   }
 }
