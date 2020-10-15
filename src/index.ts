@@ -7,7 +7,7 @@ const recognition = new speechRecognition();
 const emitter = mitt();
 
 class STT {
-  recognition: any;
+  recognition: typeof speechRecognition;
   isRecognizing: boolean;
   finalTranscript: string = '';
 
@@ -33,9 +33,8 @@ class STT {
 
   start() {
     if (!isSupportedBrowser) {
-      return {
-        isSupportedBrowser,
-      };
+      emitter.emit('error', 'not-supported-browser');
+      return;
     }
 
     if (this.isRecognizing) {
@@ -85,14 +84,10 @@ class STT {
       finalTranscript: linebreak(this.finalTranscript),
       interimTranscript: linebreak(interimTranscript)
     });
-
-    // final_span.innerHTML = linebreak(finalTranscript);
-    // interim_span.innerHTML = linebreak(interimTranscript);
   }
 
   onError(event) {
     this.isRecognizing = false;
-    // no-speech|audio-capture|not-allowed
     emitter.emit('error', event.error);
   }
 }

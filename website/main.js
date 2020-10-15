@@ -17,6 +17,8 @@ stt.on('result', ({ finalTranscript, interimTranscript }) => {
 });
 
 stt.on('error', (error) => {
+  // no-speech|audio-capture|not-allowed
+  // not-supported-browser
   console.log('error :>> ', error);
 });
 
