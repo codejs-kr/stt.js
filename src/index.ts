@@ -16,18 +16,18 @@ class STT {
     this.recognition.lang = language;
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
-    
+
     this.recognition.onstart = this.onStart;
     this.recognition.onend = this.onResult;
     this.recognition.onresult = this.onResult;
     this.recognition.onerror = this.onError;
   }
 
-  on(eventName, listener) {
+  on(eventName: string, listener: () => void) {
     emitter.on(eventName, listener);
   }
 
-  off(eventName, listener) {
+  off(eventName: string, listener: () => void) {
     emitter.off(eventName, listener);
   }
 
@@ -65,7 +65,7 @@ class STT {
       recognition.stop();
       return false;
     }
-    
+
     let interimTranscript = '';
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       const transcript = event.results[i][0].transcript;
@@ -80,9 +80,9 @@ class STT {
     this.finalTranscript = capitalize(this.finalTranscript);
 
     // emit result
-    emitter.emit('result', { 
+    emitter.emit('result', {
       finalTranscript: linebreak(this.finalTranscript),
-      interimTranscript: linebreak(interimTranscript)
+      interimTranscript: linebreak(interimTranscript),
     });
   }
 
