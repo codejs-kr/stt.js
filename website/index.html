@@ -1,7 +1,26 @@
 <html>
+  <head>    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>stt.js demo</title>
+    <meta name="description" content="speech to text library demo" />
+    <meta name="author" content="codeJS" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
   <body>
-    <h1>stt.js demo</h1>
-    <p>speech to text library demo</p>
+    <div class="wrap">
+      <h1>stt.js demo</h1>
+      <p>speech to text library demo</p>
+
+      <div id="result">
+        <span class="final" id="final_span"></span>
+        <span class="interim" id="interim_span"></span>
+      </div>
+
+      <button id="btn-mic" class="off">
+        마이크 <span></span>
+      </button>
+    </div>
     <script src="./main.js"></script>
   </body>
 </html>

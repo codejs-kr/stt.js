@@ -1,8 +1,60 @@
 body {
-  
+  //
 }
 
-.main {
-  /* Reference an image file */
-  color: red;
+.wrap {
+  width: 720px;
+  margin: 0 auto;
+}
+
+#result {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  height: 150px;
+  border: solid 1px #000;
+  border-radius: 6px;
+
+  span {
+    line-height: 1.5;
+  }
+}
+
+#btn-mic {
+  span {
+    display: inline-block;
+    margin: 1px 0 0 5px;
+    width: 10px;
+    height: 10px;
+    border: solid 1px #fff;
+    background: #bbb;
+    border-radius: 50%;
+  }
+
+  &.on span {
+    background: green;
+  }
+} 
+
+button {
+  margin: 0 0 1em 0;
+  padding: 0.4em 0.7em 0.5em 0.7em;
+  min-width: 100px;
+  background-color: #d84a38;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button:active,
+button:hover {
+  background-color: #cf402f;
+}
+button[disabled] {
+  color: #ccc;
+}
+button[disabled]:hover {
+  background-color: #d84a38;
 }
