@@ -5,9 +5,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "test": "npm run test",
-    "start": "tsc --watch",
-    "start:website": "parcel ./website/index.html -d ./website/output",
-    "start:all": "concurrently \"npm run start\" \"npm run start:website\""
+    "start": "concurrently \"npm run start:tsc\" \"npm run start:website\"",
+    "start:tsc": "tsc --watch",
+    "start:website": "parcel ./website/index.html -d ./website/output"
   },
   "repository": {
     "type": "git",
