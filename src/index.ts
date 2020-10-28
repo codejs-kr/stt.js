@@ -11,11 +11,11 @@ class STT {
   isRecognizing: boolean;
   finalTranscript: string = '';
 
-  constructor({ language = 'ko' }) {
+  constructor({ language = 'ko', continuous = true, interimResults = true }) {
     this.recognition = recognition;
     this.recognition.lang = language;
-    this.recognition.continuous = true;
-    this.recognition.interimResults = true;
+    this.recognition.continuous = continuous;
+    this.recognition.interimResults = interimResults;
 
     this.recognition.onstart = this.onStart;
     this.recognition.onend = this.onResult;
