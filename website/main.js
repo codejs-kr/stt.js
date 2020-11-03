@@ -18,7 +18,6 @@ function bindSttEvents() {
 
   stt.on('end', () => {
     console.log('end :>> ');
-
     $btnMic.className = 'off';
   });
 
@@ -30,16 +29,17 @@ function bindSttEvents() {
   });
 
   stt.on('error', (error) => {
-    // no-speech|audio-capture|not-allowed
-    // not-supported-browser
+    // no-speech|audio-capture|not-allowed|not-supported-browser
     console.log('error :>> ', error);
-
     $btnMic.className = 'off';
+    alert(error);
   });
 }
 
 function bindDomEvents() {
-  $btnMic.addEventListener('click', () => stt.start());
+  $btnMic.addEventListener('click', () => {
+    stt[stt.getIsRecognizing() ? 'stop' : 'start']();
+  });
 }
 
 function init() {

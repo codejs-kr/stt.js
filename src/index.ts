@@ -7,9 +7,9 @@ const recognition = new speechRecognition();
 const emitter = mitt();
 
 class STT {
-  recognition: typeof speechRecognition;
-  isRecognizing: boolean;
-  finalTranscript: string = '';
+  private recognition: typeof speechRecognition;
+  private isRecognizing: boolean = false;
+  private finalTranscript: string = '';
 
   constructor({ language = 'ko', continuous = true, interimResults = true }) {
     this.recognition = recognition;
@@ -18,7 +18,7 @@ class STT {
     this.recognition.interimResults = interimResults;
 
     this.recognition.onstart = this.onStart;
-    this.recognition.onend = this.onResult;
+    this.recognition.onend = this.onEnd;
     this.recognition.onresult = this.onResult;
     this.recognition.onerror = this.onError;
   }
@@ -31,7 +31,7 @@ class STT {
     emitter.off(eventName, listener);
   }
 
-  start() {
+  start = () => {
     if (!isSupportedBrowser) {
       emitter.emit('error', 'not-supported-browser');
       return;
@@ -42,54 +42,58 @@ class STT {
       return;
     }
 
+    this.finalTranscript = '';
     this.recognition.start();
-  }
+  };
 
-  stop() {
+  stop = () => {
     this.recognition.stop();
-  }
+  };
 
-  onStart() {
+  onStart = () => {
     this.isRecognizing = true;
     emitter.emit('start');
-  }
+  };
 
-  onEnd() {
+  onEnd = () => {
     this.isRecognizing = false;
     emitter.emit('end');
-  }
+  };
 
-  onResult(event) {
+  onResult = (event) => {
+    let interimTranscript = '';
     if (typeof event.results === 'undefined') {
       recognition.onend = null;
       recognition.stop();
       return false;
     }
 
-    let interimTranscript = '';
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       const transcript = event.results[i][0].transcript;
-
       if (event.results[i].isFinal) {
         this.finalTranscript += transcript;
+        console.log('isFinal :>> ', transcript, event.results);
       } else {
         interimTranscript += transcript;
       }
     }
 
-    this.finalTranscript = capitalize(this.finalTranscript);
-
     // emit result
     emitter.emit('result', {
       finalTranscript: linebreak(this.finalTranscript),
       interimTranscript: linebreak(interimTranscript),
+      results: event.results,
     });
-  }
+  };
 
-  onError(event) {
+  onError = (event) => {
     this.isRecognizing = false;
     emitter.emit('error', event.error);
-  }
+  };
+
+  getIsRecognizing = () => {
+    return this.isRecognizing;
+  };
 }
 
 export default STT;
