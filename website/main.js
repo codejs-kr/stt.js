@@ -1,7 +1,11 @@
 import './main.scss';
 import STT from '../dist';
 
-const stt = new STT({ language: 'ko' });
+const stt = new STT({
+  lang: 'ko-KR',
+  continuous: true,
+  interimResults: true,
+});
 console.log('STT :>> ', stt);
 
 const $btnMic = document.querySelector('#btn-mic');

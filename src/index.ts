@@ -6,14 +6,15 @@ const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
 const emitter = mitt();
 
+// ref https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
 class STT {
   private recognition: typeof speechRecognition;
   private isRecognizing: boolean = false;
   private finalTranscript: string = '';
 
-  constructor({ language = 'ko', continuous = true, interimResults = true }) {
+  constructor({ lang = navigator.language, continuous = false, interimResults = false }) {
     this.recognition = recognition;
-    this.recognition.lang = language;
+    this.recognition.lang = lang;
     this.recognition.continuous = continuous;
     this.recognition.interimResults = interimResults;
 
