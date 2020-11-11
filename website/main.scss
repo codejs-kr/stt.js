@@ -1,17 +1,34 @@
 body {
-  //
+  font-size: 16px;
+}
+
+h1 {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 18px;
 }
 
 .wrap {
-  width: 720px;
   margin: 0 auto;
+  padding: 80px 30px;
+  width: 720px;
+}
+
+.ribbon {
+  position: fixed;
+  top: 0;
+  right: 0
 }
 
 #result {
   margin-bottom: 20px;
   padding: 10px 20px;
-  height: 150px;
-  border: solid 1px #000;
+  height: 200px;
+  border: solid 1px rgba(0,0,0,0.5);
   border-radius: 6px;
 
   span {
@@ -36,9 +53,8 @@ body {
 } 
 
 button {
-  margin: 0 0 1em 0;
   padding: 0.4em 0.7em 0.5em 0.7em;
-  min-width: 100px;
+  min-width: 150px;
   background-color: #d84a38;
   border: none;
   border-radius: 2px;

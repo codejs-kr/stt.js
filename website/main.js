@@ -8,16 +8,17 @@ const stt = new STT({
 });
 console.log('STT :>> ', stt);
 
-const $btnMic = document.querySelector('#btn-mic');
 const $resultWrap = document.querySelector('#result');
+const $finalText = document.querySelector('#final-text');
+const $interimText = document.querySelector('#interim-text');
+const $btnMic = document.querySelector('#btn-mic');
 
 function bindSttEvents() {
   stt.on('start', () => {
     console.log('start :>> ');
-
     $btnMic.className = 'on';
-    final_span.innerHTML = '';
-    interim_span.innerHTML = '';
+    $finalText.innerHTML = '';
+    $interimText.innerHTML = '';
   });
 
   stt.on('end', () => {
@@ -28,8 +29,8 @@ function bindSttEvents() {
   stt.on('result', ({ finalTranscript, interimTranscript }) => {
     console.log('result :>> ', finalTranscript, interimTranscript);
 
-    final_span.innerHTML = finalTranscript;
-    interim_span.innerHTML = interimTranscript;
+    $finalText.innerHTML = finalTranscript;
+    $interimText.innerHTML = interimTranscript;
   });
 
   stt.on('error', (error) => {
