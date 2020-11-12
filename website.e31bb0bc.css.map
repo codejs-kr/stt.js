@@ -1,1 +1,0 @@
-{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAIA;AACE;EACA","file":"website.e31bb0bc.css","sourceRoot":"..","sourcesContent":["body {\r\n  \r\n}\r\n\r\n.main {\r\n  /* Reference an image file */\r\n  color: red;\r\n}"]}
