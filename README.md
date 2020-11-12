@@ -1,4 +1,4 @@
-# stt.js
+# stt.js (WIP)
 
 Speech To Text Javascript Library
 
