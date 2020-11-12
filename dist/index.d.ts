@@ -1,14 +1,20 @@
 declare class STT {
-    recognition: any;
-    isRecognizing: boolean;
-    constructor({ language }: {
-        language?: string;
+    private recognition;
+    private isRecognizing;
+    private finalTranscript;
+    constructor({ lang, continuous, interimResults }: {
+        lang?: string;
+        continuous?: boolean;
+        interimResults?: boolean;
     });
-    start(): void;
-    stop(): void;
-    onStart(): void;
-    onResult(): void;
-    onError(): void;
-    initialize(): void;
+    on(eventName: string, listener: () => void): void;
+    off(eventName: string, listener: () => void): void;
+    start: () => void;
+    stop: () => void;
+    onStart: () => void;
+    onEnd: () => void;
+    onResult: (event: any) => boolean;
+    onError: (event: any) => void;
+    getIsRecognizing: () => boolean;
 }
 export default STT;
