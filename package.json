@@ -7,7 +7,8 @@
     "test": "npm run test",
     "start": "concurrently \"npm run start:tsc\" \"npm run start:website\"",
     "start:tsc": "tsc --watch",
-    "start:website": "parcel ./website/index.html -d ./website/output"
+    "start:website": "parcel ./website/index.html -d ./website/output",
+    "deploy": "git subtree push --prefix ./website/output origin gh-pages"
   },
   "repository": {
     "type": "git",
