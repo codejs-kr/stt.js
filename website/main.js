@@ -2,11 +2,11 @@ import './main.scss';
 import STT from '../dist';
 
 const stt = new STT({
-  lang: 'ko-KR',
   continuous: true,
   interimResults: true,
 });
 
+const DEFAULT_MESSAGE = '입력된 내용이 없습니다.';
 const $resultWrap = document.querySelector('#result');
 const $finalText = document.querySelector('#final-text');
 const $interimText = document.querySelector('#interim-text');
@@ -37,10 +37,17 @@ function bindSttEvents() {
   });
 
   stt.on('error', (error) => {
-    // no-speech|audio-capture|not-allowed|not-supported-browser
     console.log('error :>> ', error);
+    // no-speech|audio-capture|not-allowed|not-supported-browser
     $btnMic.className = 'off';
-    alert(error);
+
+    switch (error) {
+      case 'not-allowed':
+        alert('마이크 권한이 필요합니다.');
+        break;
+      default:
+        alert(error);
+    }
   });
 }
 
@@ -50,7 +57,7 @@ function bindDomEvents() {
   });
 
   $btnTTS.addEventListener('click', () => {
-    const text = $finalText.innerText || '아직 내용이 없습니다.';
+    const text = $finalText.innerText || DEFAULT_MESSAGE;
     textToSpeech(text);
   });
 }
@@ -91,7 +98,7 @@ function fireCommand(string) {
   } else if (string.endsWith('볼륨 다운') || string.endsWith('볼륨다운')) {
     $audio.volume -= 0.2;
   } else if (string.endsWith('스피치') || string.endsWith('말해줘') || string.endsWith('말 해 줘')) {
-    textToSpeech($finalText.innerHTML || '아직 내용이 없습니다.');
+    textToSpeech($finalText.innerHTML || DEFAULT_MESSAGE);
   }
 }
 

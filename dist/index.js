@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mitt_1 = __importDefault(require("mitt"));
 var env_1 = require("./env");
-var utils_1 = require("./utils");
 var speechRecognition = window.webkitSpeechRecognition;
 var recognition = new speechRecognition();
 var emitter = mitt_1.default();
@@ -58,8 +57,8 @@ var STT = /** @class */ (function () {
             }
             // emit result
             emitter.emit('result', {
-                finalTranscript: utils_1.linebreak(_this.finalTranscript),
-                interimTranscript: utils_1.linebreak(interimTranscript),
+                finalTranscript: _this.finalTranscript,
+                interimTranscript: interimTranscript,
                 results: event.results,
             });
         };

@@ -1,6 +1,5 @@
 import mitt from 'mitt';
 import { isSupportedBrowser } from './env';
-import { linebreak, capitalize } from './utils';
 
 const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
@@ -62,7 +61,7 @@ class STT {
   };
 
   onResult = (event) => {
-    let interimTranscript = '';
+    let interimTranscript: string = '';
     if (typeof event.results === 'undefined') {
       recognition.onend = null;
       recognition.stop();
@@ -81,8 +80,8 @@ class STT {
 
     // emit result
     emitter.emit('result', {
-      finalTranscript: linebreak(this.finalTranscript),
-      interimTranscript: linebreak(interimTranscript),
+      finalTranscript: this.finalTranscript,
+      interimTranscript: interimTranscript,
       results: event.results,
     });
   };
