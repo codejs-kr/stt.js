@@ -2,6 +2,8 @@
 
 Speech To Text Javascript Library
 
+## Demo
+https://play.codejs.co.kr/stt.js
 
 ## 인식률 측정
 
