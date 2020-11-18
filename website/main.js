@@ -15,17 +15,20 @@ const $btnTTS = document.querySelector('#btn-tts');
 const $iconMusic = document.querySelector('#icon-music');
 const $audio = document.querySelector('#audio');
 
+const $commands = document.querySelector('#commands');
+const $btnOpener = document.querySelector('#btn-commands-opener');
+
 function bindSttEvents() {
   stt.on('start', () => {
     console.log('start :>> ');
-    $btnMic.className = 'on';
+    $btnMic.classList.replace('off', 'on');
     $finalText.innerHTML = '';
     $interimText.innerHTML = '';
   });
 
   stt.on('end', () => {
     console.log('end :>> ');
-    $btnMic.className = 'off';
+    $btnMic.classList.replace('on', 'off');
   });
 
   stt.on('result', ({ finalTranscript, interimTranscript }) => {
@@ -39,7 +42,7 @@ function bindSttEvents() {
   stt.on('error', (error) => {
     console.log('error :>> ', error);
     // no-speech|audio-capture|not-allowed|not-supported-browser
-    $btnMic.className = 'off';
+    $btnMic.classList.replace('on', 'off');
 
     switch (error) {
       case 'not-allowed':
@@ -59,6 +62,16 @@ function bindDomEvents() {
   $btnTTS.addEventListener('click', () => {
     const text = $finalText.innerText || DEFAULT_MESSAGE;
     textToSpeech(text);
+  });
+
+  $btnOpener.addEventListener('click', () => {
+    if ($btnOpener.classList.contains('active')) {
+      $btnOpener.classList.remove('active');
+      $commands.classList.remove('active');
+    } else {
+      $btnOpener.classList.add('active');
+      $commands.classList.add('active');
+    }
   });
 }
 

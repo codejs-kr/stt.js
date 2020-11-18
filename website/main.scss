@@ -4,6 +4,10 @@ body {
   font-size: 16px;
   color: #333;
   background-color: #E9E6DD;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 h1 {
@@ -87,53 +91,64 @@ h2 {
   }
 }
 
-#commands {
+#btn-commands-opener {
   position: absolute;
-  bottom: 38px;
-  right: 1px;
+  top: 470px;
+  right: 0;
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #0091A0;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 50%;
+  border: 0;
+  opacity: 0.9;
+  
+  &:hover {
+    opacity: 1;
+  }
+
+  &.active {
+    background-color: #005d68;
+  }
+
+  &:active,
+  &:focus {
+    outline: 0;
+  }
 }
 
-#commands-inner {
-  position: relative;
-  span {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #0091A0;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 50%;
+#commands {
+  display: none;
+  margin-top: 20px;
+  width: 100%;
+  background-color: #366473;
+  padding: 10px 20px;
+  border-radius: 3px;
+  color: #fff;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.14);
+
+  h3 {
+    margin: 15px 0 0;
+    font-size: 18px;
+    font-weight: normal;
   }
-   
-  &:hover > div { 
+
+  ul {
+    line-height: 1.5;
+  }
+
+  &.active {
     display: block;
   }
-
-  div {
-    display: none;
-    position: absolute;
-    top: 30px;
-    right: 0px;
-    width: 500px;
-    background-color: #366473;
-    padding: 10px 20px;
-    border-radius: 3px;
-    color: #fff;
-    box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.14);
-
-    ul {
-      line-height: 1.5;
-    }
-  }
 }
 
-button {
+
+.button {
   padding: 0.4em 0.7em 0.5em 0.7em;
   min-width: 150px;
   background-color: #A08981;
@@ -143,9 +158,9 @@ button {
   font-family: 'Roboto', sans-serif;
   font-size: 1em;
   cursor: pointer;
-}
 
-button:active,
-button:hover {
-  background-color: #917971;
+  &:active,
+  &:hover {
+    background-color: #917971;
+  }
 }
