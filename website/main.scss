@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 body {
+  margin: 0;
   font-size: 16px;
   color: #333;
   background-color: #E9E6DD;
@@ -22,7 +23,7 @@ h2 {
 .wrap {
   position: relative;
   margin: 0 auto;
-  padding: 80px 0 0 0;
+  padding: 80px 20px 0 20px;
   width: 720px;
 }
 
@@ -94,7 +95,7 @@ h2 {
 #btn-commands-opener {
   position: absolute;
   top: 470px;
-  right: 0;
+  right: 20px;
   display: inline-block;
   width: 36px;
   height: 36px;
@@ -162,5 +163,21 @@ h2 {
   &:active,
   &:hover {
     background-color: #917971;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .wrap {
+    width: 100%;
+  }
+
+  .button {
+    min-width: 100px;
+    font-size: 14px;
+  }
+
+  #btn-commands-opener {
+    position: initial; 
+    margin-left: 10px;
   }
 }
