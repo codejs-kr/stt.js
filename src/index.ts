@@ -5,17 +5,18 @@ const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
 const emitter = mitt();
 
-// ref https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
+// REF: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
 class STT {
   private recognition: typeof speechRecognition;
   private isRecognizing: boolean = false;
   private finalTranscript: string = '';
 
-  constructor({ lang = navigator.language, continuous = false, interimResults = false }) {
+  constructor({ lang = navigator.language, continuous = false, interimResults = false, maxAlternatives = 1 }) {
     this.recognition = recognition;
     this.recognition.lang = lang;
     this.recognition.continuous = continuous;
     this.recognition.interimResults = interimResults;
+    this.recognition.maxAlternatives = maxAlternatives;
 
     this.recognition.onstart = this.onStart;
     this.recognition.onend = this.onEnd;
@@ -48,6 +49,10 @@ class STT {
 
   stop = () => {
     this.recognition.stop();
+  };
+
+  abort = () => {
+    this.recognition.abort();
   };
 
   onStart = () => {
