@@ -14,7 +14,6 @@ const $btnMic = document.querySelector('#btn-mic');
 const $btnTTS = document.querySelector('#btn-tts');
 const $iconMusic = document.querySelector('#icon-music');
 const $audio = document.querySelector('#audio');
-
 const $commands = document.querySelector('#commands');
 const $btnOpener = document.querySelector('#btn-commands-opener');
 

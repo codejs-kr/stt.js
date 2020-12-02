@@ -83,11 +83,10 @@ class STT {
       }
     }
 
-    // emit result
     emitter.emit('result', {
-      finalTranscript: this.finalTranscript,
-      interimTranscript: interimTranscript,
       results: event.results,
+      finalTranscript: this.finalTranscript,
+      interimTranscript,
     });
   };
 
