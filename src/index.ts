@@ -98,6 +98,10 @@ class STT {
   getIsRecognizing = () => {
     return this.isRecognizing;
   };
+
+  getRecognition = () => {
+    return this.recognition;
+  };
 }
 
 export default STT;

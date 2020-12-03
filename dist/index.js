@@ -8,11 +8,11 @@ var env_1 = require("./env");
 var speechRecognition = window.webkitSpeechRecognition;
 var recognition = new speechRecognition();
 var emitter = mitt_1.default();
-// ref https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
+// REF: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
 var STT = /** @class */ (function () {
     function STT(_a) {
         var _this = this;
-        var _b = _a.lang, lang = _b === void 0 ? navigator.language : _b, _c = _a.continuous, continuous = _c === void 0 ? false : _c, _d = _a.interimResults, interimResults = _d === void 0 ? false : _d;
+        var _b = _a.lang, lang = _b === void 0 ? navigator.language : _b, _c = _a.continuous, continuous = _c === void 0 ? false : _c, _d = _a.interimResults, interimResults = _d === void 0 ? false : _d, _e = _a.maxAlternatives, maxAlternatives = _e === void 0 ? 1 : _e;
         this.isRecognizing = false;
         this.finalTranscript = '';
         this.start = function () {
@@ -29,6 +29,9 @@ var STT = /** @class */ (function () {
         };
         this.stop = function () {
             _this.recognition.stop();
+        };
+        this.abort = function () {
+            _this.recognition.abort();
         };
         this.onStart = function () {
             _this.isRecognizing = true;
@@ -55,11 +58,10 @@ var STT = /** @class */ (function () {
                     interimTranscript += transcript;
                 }
             }
-            // emit result
             emitter.emit('result', {
+                results: event.results,
                 finalTranscript: _this.finalTranscript,
                 interimTranscript: interimTranscript,
-                results: event.results,
             });
         };
         this.onError = function (event) {
@@ -69,10 +71,14 @@ var STT = /** @class */ (function () {
         this.getIsRecognizing = function () {
             return _this.isRecognizing;
         };
+        this.getRecognition = function () {
+            return _this.recognition;
+        };
         this.recognition = recognition;
         this.recognition.lang = lang;
         this.recognition.continuous = continuous;
         this.recognition.interimResults = interimResults;
+        this.recognition.maxAlternatives = maxAlternatives;
         this.recognition.onstart = this.onStart;
         this.recognition.onend = this.onEnd;
         this.recognition.onresult = this.onResult;
