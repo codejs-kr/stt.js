@@ -7,7 +7,7 @@ const emitter = mitt();
 
 // REF: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
 class STT {
-  private recognition: typeof speechRecognition;
+  private recognition: ReturnType<typeof speechRecognition>;
   private isRecognizing: boolean = false;
   private finalTranscript: string = '';
 
