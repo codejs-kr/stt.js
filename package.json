@@ -3,6 +3,7 @@
   "version": "0.5.1",
   "description": "Speech to text javascript library",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "npm run test",
     "start": "concurrently \"npm run start:tsc\" \"npm run start:website\"",
