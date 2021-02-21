@@ -4,6 +4,9 @@
   "description": "Speech to text javascript library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "npm run test",
     "start": "concurrently \"npm run start:tsc\" \"npm run start:website\"",
