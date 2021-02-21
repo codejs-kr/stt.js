@@ -1,6 +1,6 @@
 {
   "name": "stt.js",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "description": "Speech to text javascript library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
