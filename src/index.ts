@@ -1,4 +1,5 @@
 import mitt from 'mitt';
+import { ERROR_TYPES } from './types';
 import { isSupportedBrowser } from './env';
 
 const speechRecognition = window.webkitSpeechRecognition;
@@ -34,7 +35,7 @@ class STT {
 
   start = () => {
     if (!isSupportedBrowser) {
-      emitter.emit('error', 'not-supported-browser');
+      emitter.emit('error', ERROR_TYPES.NOT_SUPPORTED_BROWSER);
       return;
     }
 
@@ -65,32 +66,34 @@ class STT {
     emitter.emit('end');
   };
 
-  onResult = (event) => {
+  onResult = (event: { results: any[]; resultIndex: number }) => {
+    const { results, resultIndex } = event;
     let interimTranscript: string = '';
-    if (typeof event.results === 'undefined') {
+
+    if (typeof results === 'undefined') {
       recognition.onend = null;
       recognition.stop();
-      return false;
+      return;
     }
 
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      const transcript = event.results[i][0].transcript;
-      if (event.results[i].isFinal) {
+    for (let i = resultIndex; i < results.length; ++i) {
+      const transcript = results[i][0].transcript;
+      if (results[i].isFinal) {
         this.finalTranscript += transcript;
-        console.log('isFinal :>> ', transcript, event.results);
+        console.log('isFinal :>> ', transcript, results);
       } else {
         interimTranscript += transcript;
       }
     }
 
     emitter.emit('result', {
-      results: event.results,
-      finalTranscript: this.finalTranscript,
+      results,
       interimTranscript,
+      finalTranscript: this.finalTranscript,
     });
   };
 
-  onError = (event) => {
+  onError = (event: { error: string }) => {
     this.isRecognizing = false;
     emitter.emit('error', event.error);
   };
@@ -103,5 +106,7 @@ class STT {
     return this.recognition;
   };
 }
+
+export { ERROR_TYPES };
 
 export default STT;

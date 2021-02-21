@@ -3,7 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ERROR_TYPES = void 0;
 var mitt_1 = __importDefault(require("mitt"));
+var types_1 = require("./types");
+Object.defineProperty(exports, "ERROR_TYPES", { enumerable: true, get: function () { return types_1.ERROR_TYPES; } });
 var env_1 = require("./env");
 var speechRecognition = window.webkitSpeechRecognition;
 var recognition = new speechRecognition();
@@ -17,7 +20,7 @@ var STT = /** @class */ (function () {
         this.finalTranscript = '';
         this.start = function () {
             if (!env_1.isSupportedBrowser) {
-                emitter.emit('error', 'not-supported-browser');
+                emitter.emit('error', types_1.ERROR_TYPES.NOT_SUPPORTED_BROWSER);
                 return;
             }
             if (_this.isRecognizing) {
@@ -42,26 +45,27 @@ var STT = /** @class */ (function () {
             emitter.emit('end');
         };
         this.onResult = function (event) {
+            var results = event.results, resultIndex = event.resultIndex;
             var interimTranscript = '';
-            if (typeof event.results === 'undefined') {
+            if (typeof results === 'undefined') {
                 recognition.onend = null;
                 recognition.stop();
-                return false;
+                return;
             }
-            for (var i = event.resultIndex; i < event.results.length; ++i) {
-                var transcript = event.results[i][0].transcript;
-                if (event.results[i].isFinal) {
+            for (var i = resultIndex; i < results.length; ++i) {
+                var transcript = results[i][0].transcript;
+                if (results[i].isFinal) {
                     _this.finalTranscript += transcript;
-                    console.log('isFinal :>> ', transcript, event.results);
+                    console.log('isFinal :>> ', transcript, results);
                 }
                 else {
                     interimTranscript += transcript;
                 }
             }
             emitter.emit('result', {
-                results: event.results,
-                finalTranscript: _this.finalTranscript,
+                results: results,
                 interimTranscript: interimTranscript,
+                finalTranscript: _this.finalTranscript,
             });
         };
         this.onError = function (event) {

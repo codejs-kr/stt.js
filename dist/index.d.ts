@@ -1,3 +1,4 @@
+import { ERROR_TYPES } from './types';
 declare class STT {
     private recognition;
     private isRecognizing;
@@ -15,9 +16,15 @@ declare class STT {
     abort: () => void;
     onStart: () => void;
     onEnd: () => void;
-    onResult: (event: any) => boolean;
-    onError: (event: any) => void;
+    onResult: (event: {
+        results: any[];
+        resultIndex: number;
+    }) => void;
+    onError: (event: {
+        error: string;
+    }) => void;
     getIsRecognizing: () => boolean;
     getRecognition: () => any;
 }
+export { ERROR_TYPES };
 export default STT;

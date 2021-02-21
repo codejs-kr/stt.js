@@ -38,9 +38,9 @@ function bindSttEvents() {
     fireCommand(interimTranscript);
   });
 
+  // no-speech|audio-capture|not-allowed|not-supported-browser
   stt.on('error', (error) => {
     console.log('error :>> ', error);
-    // no-speech|audio-capture|not-allowed|not-supported-browser
     $btnMic.classList.replace('on', 'off');
 
     switch (error) {
