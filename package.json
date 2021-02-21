@@ -12,7 +12,8 @@
     "build:website": "parcel build website/index.html -d website/output --public-url ./  --no-source-maps",
     "build:clear": "rm -rf website/output",
     "build": "concurrently \"npm run build:clear\" \"npm run build:website\"",
-    "deploy": "gh-pages -d website/output"
+    "deploy": "gh-pages -d website/output",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
