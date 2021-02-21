@@ -1,9 +1,20 @@
 # stt.js (WIP)
 
-Speech To Text Javascript Library
+Speech To Text Javascript Library<br/>
+
+## Install
+```
+npm install stt.js
+```
 
 ## LiveDemo
 https://play.codejs.co.kr/stt.js
+
+## Browser support 
+- Chrome >= 33
+- Edge >= 82
+
+https://caniuse.com/mdn-api_speechrecognitionevent
 
 ## Quick Start
 Please first prepare your microphone
