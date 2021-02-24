@@ -2,18 +2,17 @@ import mitt, { Handler } from 'mitt';
 import { ERROR_TYPES } from './types';
 import { checkIsSupportedBrowser } from './env';
 
-const speechRecognition = window.webkitSpeechRecognition;
-const recognition = new speechRecognition();
 const emitter = mitt();
 
 // REF: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
 class STT {
-  private recognition: ReturnType<typeof speechRecognition>;
+  private recognition: ReturnType<typeof window.webkitSpeechRecognition>;
+  private speechRecognition = window.webkitSpeechRecognition;
   private isRecognizing: boolean = false;
   private finalTranscript: string = '';
 
   constructor({ lang = navigator.language, continuous = false, interimResults = false, maxAlternatives = 1 }) {
-    this.recognition = recognition;
+    this.recognition = new this.speechRecognition();
     this.recognition.lang = lang;
     this.recognition.continuous = continuous;
     this.recognition.interimResults = interimResults;

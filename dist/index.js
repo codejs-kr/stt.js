@@ -8,18 +8,17 @@ var mitt_1 = __importDefault(require("mitt"));
 var types_1 = require("./types");
 Object.defineProperty(exports, "ERROR_TYPES", { enumerable: true, get: function () { return types_1.ERROR_TYPES; } });
 var env_1 = require("./env");
-var speechRecognition = window.webkitSpeechRecognition;
-var recognition = new speechRecognition();
 var emitter = mitt_1.default();
 // REF: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
 var STT = /** @class */ (function () {
     function STT(_a) {
         var _this = this;
         var _b = _a.lang, lang = _b === void 0 ? navigator.language : _b, _c = _a.continuous, continuous = _c === void 0 ? false : _c, _d = _a.interimResults, interimResults = _d === void 0 ? false : _d, _e = _a.maxAlternatives, maxAlternatives = _e === void 0 ? 1 : _e;
+        this.speechRecognition = window.webkitSpeechRecognition;
         this.isRecognizing = false;
         this.finalTranscript = '';
         this.start = function () {
-            if (!env_1.isSupportedBrowser) {
+            if (!env_1.checkIsSupportedBrowser()) {
                 emitter.emit('error', types_1.ERROR_TYPES.NOT_SUPPORTED_BROWSER);
                 return;
             }
@@ -48,8 +47,8 @@ var STT = /** @class */ (function () {
             var results = event.results, resultIndex = event.resultIndex;
             var interimTranscript = '';
             if (typeof results === 'undefined') {
-                recognition.onend = null;
-                recognition.stop();
+                _this.recognition.onend = null;
+                _this.stop();
                 return;
             }
             for (var i = resultIndex; i < results.length; ++i) {
@@ -78,7 +77,7 @@ var STT = /** @class */ (function () {
         this.getRecognition = function () {
             return _this.recognition;
         };
-        this.recognition = recognition;
+        this.recognition = new this.speechRecognition();
         this.recognition.lang = lang;
         this.recognition.continuous = continuous;
         this.recognition.interimResults = interimResults;

@@ -1,6 +1,8 @@
+import { Handler } from 'mitt';
 import { ERROR_TYPES } from './types';
 declare class STT {
     private recognition;
+    private speechRecognition;
     private isRecognizing;
     private finalTranscript;
     constructor({ lang, continuous, interimResults, maxAlternatives }: {
@@ -9,8 +11,8 @@ declare class STT {
         interimResults?: boolean;
         maxAlternatives?: number;
     });
-    on(eventName: string, listener: () => void): void;
-    off(eventName: string, listener: () => void): void;
+    on<T = any>(eventName: string, listener: Handler<T>): void;
+    off<T = any>(eventName: string, listener: Handler<T>): void;
     start: () => void;
     stop: () => void;
     abort: () => void;

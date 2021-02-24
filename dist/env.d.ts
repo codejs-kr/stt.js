@@ -1,1 +1,1 @@
-export declare const isSupportedBrowser: boolean;
+export declare const checkIsSupportedBrowser: () => boolean;
