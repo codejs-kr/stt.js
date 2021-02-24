@@ -35,8 +35,8 @@ stt.on('end', () => {
   // handle end event
 });
 
-stt.on('result', ({ finalTranscript, interimTranscript, results }) => {
-  console.log('result :>> ', finalTranscript, interimTranscript, results);
+stt.on('result', ({ finalTranscript, interimTranscript }) => {
+  console.log('result :>> ', finalTranscript, interimTranscript);
   // handle recognition result
 });
 
