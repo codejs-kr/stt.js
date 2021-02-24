@@ -1,6 +1,6 @@
-import mitt from 'mitt';
+import mitt, { Handler } from 'mitt';
 import { ERROR_TYPES } from './types';
-import { isSupportedBrowser } from './env';
+import { checkIsSupportedBrowser } from './env';
 
 const speechRecognition = window.webkitSpeechRecognition;
 const recognition = new speechRecognition();
@@ -25,16 +25,16 @@ class STT {
     this.recognition.onerror = this.onError;
   }
 
-  on(eventName: string, listener: () => void) {
+  on<T = any>(eventName: string, listener: Handler<T>) {
     emitter.on(eventName, listener);
   }
 
-  off(eventName: string, listener: () => void) {
+  off<T = any>(eventName: string, listener: Handler<T>) {
     emitter.off(eventName, listener);
   }
 
   start = () => {
-    if (!isSupportedBrowser) {
+    if (!checkIsSupportedBrowser()) {
       emitter.emit('error', ERROR_TYPES.NOT_SUPPORTED_BROWSER);
       return;
     }
@@ -71,8 +71,8 @@ class STT {
     let interimTranscript: string = '';
 
     if (typeof results === 'undefined') {
-      recognition.onend = null;
-      recognition.stop();
+      this.recognition.onend = null;
+      this.stop();
       return;
     }
 
